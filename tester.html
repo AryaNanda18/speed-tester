@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Typing Speed Test</title>
+</head>
+<body>
+<h2>Typing Speed Tester</h2>
+<textarea id="box" rows="10" cols="40" ></textarea><br>
+<button id="start">Start</button>
+<p id="time">Time left: 30</p>
+<p id="words"></p>
+<script>
+  let time = 30;
+  let timer;
+  const box = document.getElementById('box');
+  const start = document.getElementById('start');
+  const timeDisplay = document.getElementById('time');
+  const wordsDisplay = document.getElementById('words');
+  start.onclick = function() {
+    box.value = "";
+    box.focus();
+    wordsDisplay.textContent = "";
+    time = 30;
+    timeDisplay.textContent = "Time left: " + time;
+    timer = setInterval(function() {
+      time--;
+      timeDisplay.textContent = "Time left: " + time;
+      if(time === 0) {
+        clearInterval(timer);
+        countWords();
+      }
+    }, 1000);
+  }
+  function countWords() {
+    let text = box.value.trim();
+    if(text === "") {
+      wordsDisplay.textContent = "You typed 0 words.";
+    } else {
+      let words = text.split(/\s+/);
+      wordsDisplay.textContent = "You typed " + words.length + " words.";
+    }
+  }
+</script>
+</body>
+</html>
